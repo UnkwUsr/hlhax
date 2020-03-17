@@ -7,12 +7,12 @@
 
 
 namespace Xqz {
-	void Init();
-	void Terminate();
+    void Init();
+    void Terminate();
 
-	DECL_HOOK(void, StudioRenderModel, void* this_ptr)
+    DECL_HOOK(void, StudioRenderModel, void* this_ptr)
 
-	DECL_HOOK(void, glVertex3f, GLfloat x, GLfloat y, GLfloat z)
+    DECL_HOOK(void, glVertex3f, GLfloat x, GLfloat y, GLfloat z)
 } // namespace Xqz
 
 #endif

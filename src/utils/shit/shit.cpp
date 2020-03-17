@@ -15,3 +15,21 @@ const char* getPlayerNameByIndex(int index)
 
     return plr_info.name;
 }
+
+bool WorldToScreen( float *pflOrigin , float *pflVecScreen )
+{
+    int iResult = gp_Engine->pTriAPI->WorldToScreen( pflOrigin , pflVecScreen );
+
+    SCREENINFO g_Screen;
+    g_Screen.iSize = sizeof( SCREENINFO );
+    gp_Engine->pfnGetScreenInfo( &g_Screen );
+
+    if ( pflVecScreen[0] < 1 && pflVecScreen[1] < 1 && pflVecScreen[0] > -1 && pflVecScreen[1] > -1 && !iResult )
+    {
+        pflVecScreen[0] = pflVecScreen[0] * ( g_Screen.iWidth / 2 ) + ( g_Screen.iWidth / 2 );
+        pflVecScreen[1] = -pflVecScreen[1] * ( g_Screen.iHeight / 2 ) + ( g_Screen.iHeight / 2 );
+        return true;
+    }
+
+    return false;
+}

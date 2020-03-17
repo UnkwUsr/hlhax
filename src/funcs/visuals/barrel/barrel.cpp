@@ -61,9 +61,11 @@ namespace Barrel {
             vecBegin[2]+=12;
         else
             vecBegin[2]+=17;
+        vecBegin[2] += 9;
 
         Vector forward;
         gp_Engine->pfnAngleVectors(ent->angles, forward, NULL, NULL);
+        forward[2] = -forward[2];
 
         vecBegin[0] += forward[0] * 10;
         vecBegin[1] += forward[1] * 10;

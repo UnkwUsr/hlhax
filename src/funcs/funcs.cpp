@@ -7,6 +7,7 @@
 #include "funcs/visuals/wiremodels/wiremodels.h"
 #include "funcs/visuals/noflash/noflash.h"
 #include "funcs/visuals/tracer/tracer.h"
+#include "funcs/visuals/esp/esp.h"
 
 #include "funcs/movement/fps_set/fps_set.h"
 #include "funcs/movement/sgs/sgs.h"
@@ -26,6 +27,7 @@ void Funcs_Init()
 //  WireModels::Init();
     NoFlash::Init();
     Tracer::Init();
+    Esp::Init();
 
     SteamidChanger::Init();
 
