@@ -33,10 +33,8 @@ namespace Info {
         if(Cvars::info_speed_h->value != 0)
         {
             char text[30];
-            sprintf(text, "HSpeed: TODO");
-            // TODO: find define func LengthXY in tkz sources
-            //sprintf(text, "HSpeed: %.3f", gp_pmove->velocity.
-            //    LengthXY());
+            sprintf(text, "HSpeed: %.3f",
+                std::hypot(gp_pmove->velocity[0], gp_pmove->velocity[1]));
             gp_Engine->pfnDrawConsoleString(640 / 2, 480 / 2 + y,
                 text);
             y += 15;
