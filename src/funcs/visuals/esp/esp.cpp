@@ -12,6 +12,7 @@ namespace Cvars
     cvar_t* esp_r;
     cvar_t* esp_g;
     cvar_t* esp_b;
+    cvar_t* esp_a;
 }
 
 std::vector<cl_entity_t*> cords;
@@ -26,9 +27,10 @@ namespace Esp {
         ADD_HOOK(HUD_AddEntity, gp_Client)
 
         Cvars::esp = CREATE_CVAR("esp", "1");
-        Cvars::esp_r = CREATE_CVAR("esp_r", "255");
+        Cvars::esp_r = CREATE_CVAR("esp_r", "0");
         Cvars::esp_g = CREATE_CVAR("esp_g", "0");
         Cvars::esp_b = CREATE_CVAR("esp_b", "255");
+        Cvars::esp_a = CREATE_CVAR("esp_a", "255");
     }
 
 
@@ -47,9 +49,11 @@ namespace Esp {
                 int y = (int)Screen[1];
 
                 if (x && y)
-                    DrawBox( x , y , 10 , 10 , 1 , 0 , Cvars::esp_r->value,
+                    DrawBox( x , y , 10 , 10 , 1,
+                            Cvars::esp_r->value,
                             Cvars::esp_g->value,
-                            Cvars::esp_b->value);
+                            Cvars::esp_b->value,
+                            Cvars::esp_a->value);
             }
         }
 
