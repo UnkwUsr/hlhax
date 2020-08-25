@@ -12,7 +12,7 @@ namespace Xqz {
 
     DECL_HOOK(void, StudioRenderModel, void* this_ptr)
 
-    DECL_HOOK(void, glVertex3f, GLfloat x, GLfloat y, GLfloat z)
+    DECL_HOOK(void, glColor4f, GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha)
 } // namespace Xqz
 
 #endif
