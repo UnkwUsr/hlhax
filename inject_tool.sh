@@ -5,7 +5,7 @@ if ! [ -n "$1" ]; then
     echo "Please write argument. Using: $0 [d]{load,unload,reload} ('d' is for debug)"
     exit 1
 fi
-if ! make; then
+if ! @CMAKE_MAKE_PROGRAM@; then
     echo "make error."
     exit 2
 fi

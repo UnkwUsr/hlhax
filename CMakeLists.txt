@@ -11,6 +11,9 @@ include_directories(sdk/halflife-master/common
                     src
                     )
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
+# copy inject tool to build directory
+configure_file(inject_tool.sh ./
+                   @ONLY)
 
 add_compile_definitions(CMD_PREFIX="hx_")
 add_compile_definitions(CVAR_PREFIX="cv_")
