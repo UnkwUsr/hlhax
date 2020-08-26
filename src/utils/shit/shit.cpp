@@ -33,3 +33,15 @@ bool WorldToScreen( float *pflOrigin , float *pflVecScreen )
 
     return false;
 }
+
+void DrawLine(float *from, float *to, float r, float g, float b, float life, float width) {
+    static int beamindex = gp_Engine->pEventAPI->
+        EV_FindModelIndex("sprites/laserbeam.spr");
+
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    gp_Engine->pEfxAPI->R_BeamPoints(from, to, beamindex, life,
+            width, 0, 128, 0, 0, 0, r, g, b);
+}

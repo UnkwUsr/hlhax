@@ -15,6 +15,7 @@
 #include "funcs/movement/speedhack/speedhack.h"
 
 #include "funcs/misc/steamid_changer/steamid_changer.h"
+#include "funcs/misc/triggerbot/triggerbot.h"
 
 
 
@@ -30,6 +31,7 @@ void Funcs_Init()
     Esp::Init();
 
     SteamidChanger::Init();
+    TriggerBot::Init();
 
     FpsSet::Init();
     Sgs::Init();
