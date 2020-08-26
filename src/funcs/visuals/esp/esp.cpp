@@ -15,11 +15,11 @@ namespace Cvars
     cvar_t* esp_a;
 }
 
-std::vector<cl_entity_t*> cords;
 namespace Esp {
     DEF_HOOK(HUD_Redraw)
     DEF_HOOK(HUD_AddEntity)
 
+    std::vector<cl_entity_t*> cords;
 
     void Init()
     {
@@ -34,7 +34,6 @@ namespace Esp {
     }
 
 
-
     int HUD_Redraw(float time, int intermission)
     {
         if(Cvars::esp->value == 0)
@@ -43,17 +42,13 @@ namespace Esp {
         for(auto &ent : cords)
         {
             float Screen[2];
-            if(WorldToScreen(ent->origin , Screen))
-            {
-                int x = (int)Screen[0];
-                int y = (int)Screen[1];
-
-                if (x && y)
-                    DrawBox( x , y , 10 , 10 , 1,
-                            Cvars::esp_r->value,
-                            Cvars::esp_g->value,
-                            Cvars::esp_b->value,
-                            Cvars::esp_a->value);
+            if(WorldToScreen(ent->origin , Screen)) {
+                DrawBox(Screen[0], Screen[1],
+                        30, 30, 5,
+                        Cvars::esp_r->value,
+                        Cvars::esp_g->value,
+                        Cvars::esp_b->value,
+                        Cvars::esp_a->value);
             }
         }
 
