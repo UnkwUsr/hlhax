@@ -8,7 +8,6 @@
 namespace Cvars
 {
     cvar_t* barrel;
-    cvar_t* barrel_len;
     cvar_t* barrel_width;
     cvar_t* barrel_r;
     cvar_t* barrel_g;
@@ -23,7 +22,6 @@ namespace Barrel {
         ADD_HOOK(HUD_AddEntity, gp_Client)
 
         Cvars::barrel = CREATE_CVAR("barrel", "1");
-        Cvars::barrel_len = CREATE_CVAR("barrel_len", "450");
         Cvars::barrel_width = CREATE_CVAR("barrel_width", "0.8");
         Cvars::barrel_r = CREATE_CVAR("barrel_r", "0");
         Cvars::barrel_g = CREATE_CVAR("barrel_g", "255");
@@ -31,27 +29,12 @@ namespace Barrel {
     }
 
 
-    void DrawLine(float *from, float *to)
-    {
-        int beamindex = gp_Engine->pEventAPI->
-            EV_FindModelIndex("sprites/laserbeam.spr");
-
-        float life = 0.001f;
-        float width = Cvars::barrel_width->value;
-        float r = Cvars::barrel_r->value / 255;
-        float g = Cvars::barrel_g->value / 255;
-        float b = Cvars::barrel_b->value / 255;
-
-        gp_Engine->pEfxAPI->R_BeamPoints(from, to, beamindex, life,
-            width, 0, 32, 2, 0, 0, r, g, b);
-    }
-
     int HUD_AddEntity(int type, cl_entity_t *ent,
         const char *modelname)
     {
         if(Cvars::barrel->value == 0)
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
-        if(!ent->player || !isAlive(ent->curstate))
+        if(!ent->player || !isAlive(ent->curstate) || ent->index == gp_Engine->GetLocalPlayer()->index)
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
 
 
@@ -70,9 +53,13 @@ namespace Barrel {
         vecBegin[0] += forward[0] * 10;
         vecBegin[1] += forward[1] * 10;
         vecBegin[2] += forward[2] * 10;
-        Vector vecEnd = vecBegin + forward * Cvars::barrel_len->value;
+        Vector vecEnd = vecBegin + forward * 8192;
 
-        DrawLine(vecBegin, vecEnd);
+        pmtrace_t *pmtrace = gp_Engine->PM_TraceLine(vecBegin, vecEnd, PM_TRACELINE_PHYSENTSONLY, 2, -1 );
+
+        DrawLine(vecBegin, pmtrace->endpos,
+                Cvars::barrel_r->value, Cvars::barrel_g->value, Cvars::barrel_b->value,
+                0.001, Cvars::barrel_width->value);
 
         return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
     }
