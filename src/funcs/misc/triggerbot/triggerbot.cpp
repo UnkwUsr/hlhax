@@ -36,6 +36,7 @@ namespace TriggerBot {
         Cvars::triggerbot_drawshot_time = CREATE_CVAR("triggerbot_drawshot_time", "0.5");
     }
 
+
     void triggerbot_on() {
         b_triggerbot = true;
     }
@@ -75,6 +76,9 @@ namespace TriggerBot {
         cl_entity_t* ent = gp_Engine->GetEntityByIndex(gp_pmove->physents[tr->ent].info);
 
         if(Cvars::triggerbot_onlyplayers->value != 0 && !ent->player)
+            return;
+
+        if(Cvars::triggerbot_onlyplayers->value != 0 && !isAlive(ent->curstate))
             return;
 
         // start attack
