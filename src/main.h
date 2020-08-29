@@ -16,7 +16,6 @@ void restoreOriginals();
 
 void find_steamclient_funcs();
 void findStudioModelRenderer();
-void findSpeedPtr();
 
 
 cl_enginefunc_t *gp_Engine;
@@ -41,4 +40,3 @@ StudioModelRenderer_t go_StudioModelRenderer;
 
 playermove_t *gp_pmove;
 double* gp_host_frametime;
-float* gp_speed_val;

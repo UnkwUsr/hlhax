@@ -35,8 +35,6 @@ extern StudioModelRenderer_t go_StudioModelRenderer;
 extern playermove_t *gp_pmove;
 extern double* gp_host_frametime;
 
-extern float* gp_speed_val;
-
 
 
 #endif // GLOBALS_H

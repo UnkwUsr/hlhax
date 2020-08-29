@@ -54,8 +54,6 @@ void findSymbols()
 
     gp_pmove = *(playermove_t**)dlsym(handles::hw, "pmove");
     gp_host_frametime = (double*)dlsym(handles::hw, "host_frametime");
-    findSpeedPtr();
-
 }
 
 void copyOriginals()
@@ -105,9 +103,3 @@ void findStudioModelRenderer()
     unprotectAddr(gp_StudioModelRenderer);
 }
 
-// for the method that is named 'wavspeed'
-void findSpeedPtr()
-{
-    gp_speed_val = (float*)(g_hw_addr + 0x0026B6C8);
-    unprotectAddr(gp_speed_val);
-}
