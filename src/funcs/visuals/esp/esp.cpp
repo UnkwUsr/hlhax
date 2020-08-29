@@ -9,10 +9,12 @@
 namespace Cvars
 {
     cvar_t* esp;
-    cvar_t* esp_r;
-    cvar_t* esp_g;
-    cvar_t* esp_b;
-    cvar_t* esp_a;
+    cvar_t* esp_box_r;
+    cvar_t* esp_box_g;
+    cvar_t* esp_box_b;
+    cvar_t* esp_name_r;
+    cvar_t* esp_name_g;
+    cvar_t* esp_name_b;
 }
 
 namespace Esp {
@@ -27,10 +29,12 @@ namespace Esp {
         ADD_HOOK(HUD_AddEntity, gp_Client)
 
         Cvars::esp = CREATE_CVAR("esp", "1");
-        Cvars::esp_r = CREATE_CVAR("esp_r", "0");
-        Cvars::esp_g = CREATE_CVAR("esp_g", "0");
-        Cvars::esp_b = CREATE_CVAR("esp_b", "255");
-        Cvars::esp_a = CREATE_CVAR("esp_a", "255");
+        Cvars::esp_box_r = CREATE_CVAR("esp_box_r", "0");
+        Cvars::esp_box_g = CREATE_CVAR("esp_box_g", "0");
+        Cvars::esp_box_b = CREATE_CVAR("esp_box_b", "255");
+        Cvars::esp_name_r = CREATE_CVAR("esp_name_r", "255");
+        Cvars::esp_name_g = CREATE_CVAR("esp_name_g", "255");
+        Cvars::esp_name_b = CREATE_CVAR("esp_name_b", "255");
     }
 
 
@@ -39,16 +43,29 @@ namespace Esp {
         if(Cvars::esp->value == 0)
             return CALL_ORIG(HUD_Redraw, time, intermission);
 
+        // TODO: BUG: crash on changing map.
+        // that is because in HUD_Redraw we trying to use ent's that not exist anymore
+        // (because we store ent pointers in vector and then use it)
+        // will be fixed with creating special func that will filter all ents,
+        // and other funcs will work through that filter func
+
         for(auto &ent : cords)
         {
             float Screen[2];
             if(WorldToScreen(ent->origin , Screen)) {
                 DrawBox(Screen[0], Screen[1],
                         30, 30, 5,
-                        Cvars::esp_r->value,
-                        Cvars::esp_g->value,
-                        Cvars::esp_b->value,
-                        Cvars::esp_a->value);
+                        Cvars::esp_box_r->value,
+                        Cvars::esp_box_g->value,
+                        Cvars::esp_box_b->value,
+                        255);
+                gp_Engine->pfnDrawSetTextColor(
+                        Cvars::esp_name_r->value / 255,
+                        Cvars::esp_name_g->value / 255,
+                        Cvars::esp_name_b->value / 255);
+                gp_Engine->pfnDrawConsoleString(
+                        Screen[0], Screen[1] + 40,
+                        getPlayerNameByIndex(ent->index));
             }
         }
 
