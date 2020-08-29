@@ -39,5 +39,9 @@ void Funcs_Init()
 
 void Funcs_Terminate()
 {
+    // because of specific gl hooks,
+    // Terminate functions shold be called in reversed order relative to Init
+    // For example: Init: a, b; then Terminate should be: b, a
+    // TODO: gl hooks should be fixed in future
     Xqz::Terminate();
 }
