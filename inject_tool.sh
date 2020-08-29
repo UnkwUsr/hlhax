@@ -45,7 +45,7 @@ do
         sudo lldb $do_batch --attach-pid $pid \
             --one-line "exp auto \$lib_addr_loaded = (void*(*)(char*, int)) dlopen(\"$libpath\", 6)" \
             --one-line "exp (int(*)(void*)) dlclose(\$lib_addr_loaded)" \
-            --one-line "exp (int(*)(void*)) dlclose(\$lib_addr_loaded)" > /dev/null
+            --one-line "exp (int(*)(void*)) dlclose(\$lib_addr_loaded)"
         echo "UnLoaded!"
         ;;
     reload)
