@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "utils/cvars/cvars.h"
 #include "utils/shit/shit.h"
+#include "funcs/filter/filter.h"
 
 
 
@@ -34,7 +35,7 @@ namespace Barrel {
     {
         if(Cvars::barrel->value == 0)
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
-        if(!ent->player || !isAlive(ent->curstate) || ent->index == gp_Engine->GetLocalPlayer()->index)
+        if(!Filter::isValidPlayer(ent->index))
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
 
 
@@ -61,8 +62,7 @@ namespace Barrel {
                 Cvars::barrel_r->value, Cvars::barrel_g->value, Cvars::barrel_b->value,
                 0.001, Cvars::barrel_width->value);
 
+
         return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
     }
-
-
 } // namespace Barrel

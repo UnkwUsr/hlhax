@@ -39,6 +39,10 @@ void Funcs_Init()
     FpsSet::Init();
     Sgs::Init();
     Spinhack::Init();
+
+
+    // last hooked funcs will process first. We need that
+    Filter::SetHooks();
 }
 
 void Funcs_Terminate()

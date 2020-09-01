@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "utils/cvars/cvars.h"
 #include "utils/shit/shit.h"
+#include "funcs/filter/filter.h"
 #include <GL/gl.h>
 
 
@@ -41,7 +42,7 @@ namespace Tracer {
     {
         if(Cvars::tracer->value == 0)
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
-        if(!ent->player || !isAlive(ent->curstate) || ent->index == gp_Engine->GetLocalPlayer()->index)
+        if(!Filter::isValidPlayer(ent->index))
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
 
         Vector vecBegin;

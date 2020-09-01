@@ -20,11 +20,11 @@ namespace Filter {
         for(int i = 0; i < 32; i++)
             players[i] = false;
 
-        ADD_HOOK(HUD_AddEntity, gp_Client)
-
         /* Cvars::filter_ignore_teammates = CREATE_CVAR("filter_ignore_teammates", "0"); */
     }
-
+    void SetHooks() {
+        ADD_HOOK(HUD_AddEntity, gp_Client)
+    }
 
     int HUD_AddEntity(int type, cl_entity_t *ent,
         const char *modelname)

@@ -7,6 +7,7 @@
 
 namespace Filter {
     void Init();
+    void SetHooks();
 
     DECL_HOOK(int, HUD_AddEntity, int type, cl_entity_t *ent,
         const char *modelname)
