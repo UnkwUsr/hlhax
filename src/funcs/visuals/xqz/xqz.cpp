@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "utils/cvars/cvars.h"
 #include "utils/shit/shit.h"
+#include "funcs/filter/filter.h"
 
 
 
@@ -41,15 +42,17 @@ namespace Xqz {
         }
 
         cl_entity_t* ent = gp_EngStudio->GetCurrentEntity();
-        if(!ent->player) {
+        if(ent->index == gp_Engine->GetLocalPlayer()->index)
+            return CALL_ORIG(StudioRenderModel, this_ptr);
+        if(!Filter::isValidPlayer(ent->index)) {
+            // don't draw corpses, lol
+            if(!isAlive(ent->curstate)) {
+                return;
+            }
             return CALL_ORIG(StudioRenderModel, this_ptr);
         }
-        // don't draw corpses, lol
-        if(!isAlive(ent->curstate)) {
-            return;
-        }
 
-        // TODO: bug: older drawn entities hide players
+        // TODO: bug: next drawn entities hide players
 
         glDisable(GL_TEXTURE_2D);
 
