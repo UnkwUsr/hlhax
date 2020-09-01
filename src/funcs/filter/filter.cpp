@@ -49,6 +49,8 @@ namespace Filter {
     }
 
     bool isValidPlayer(int index) {
+        if(index > 32 || index < 0)
+            return false;
         // check is updated
         if (gp_Engine->GetEntityByIndex(index)->curstate.messagenum
                 <
