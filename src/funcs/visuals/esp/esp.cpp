@@ -2,7 +2,7 @@
 #include "globals.h"
 #include "utils/cvars/cvars.h"
 #include "utils/shit/shit.h"
-#include <vector>
+#include "funcs/filter/filter.h"
 
 
 
@@ -19,14 +19,10 @@ namespace Cvars
 
 namespace Esp {
     DEF_HOOK(HUD_Redraw)
-    DEF_HOOK(HUD_AddEntity)
-
-    std::vector<cl_entity_t*> cords;
 
     void Init()
     {
         ADD_HOOK(HUD_Redraw, gp_Client)
-        ADD_HOOK(HUD_AddEntity, gp_Client)
 
         Cvars::esp = CREATE_CVAR("esp", "1");
         Cvars::esp_box_r = CREATE_CVAR("esp_box_r", "0");
@@ -43,14 +39,12 @@ namespace Esp {
         if(Cvars::esp->value == 0)
             return CALL_ORIG(HUD_Redraw, time, intermission);
 
-        // TODO: BUG: crash on changing map.
-        // that is because in HUD_Redraw we trying to use ent's that not exist anymore
-        // (because we store ent pointers in vector and then use it)
-        // will be fixed with creating special func that will filter all ents,
-        // and other funcs will work through that filter func
+        for(int i = 1; i <= gp_Engine->GetMaxClients(); i++) {
+            if(!Filter::isValidPlayer(i))
+                continue;
 
-        for(auto &ent : cords)
-        {
+            cl_entity_t* ent = gp_Engine->GetEntityByIndex(i);
+
             float Screen[2];
             if(WorldToScreen(ent->origin , Screen)) {
                 DrawBox(Screen[0], Screen[1],
@@ -69,22 +63,8 @@ namespace Esp {
             }
         }
 
-        cords.clear();
 
         return CALL_ORIG(HUD_Redraw, time, intermission);
-    }
-
-    int HUD_AddEntity(int type, cl_entity_t *ent,
-        const char *modelname)
-    {
-        if(Cvars::esp->value == 0)
-            return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
-        if(!ent->player || !isAlive(ent->curstate))
-            return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
-
-        cords.push_back(ent);
-
-        return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
     }
 
     void DrawBox( int x , int y , int w , int h , int linewidth , int r , int g , int b , int a )
