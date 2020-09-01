@@ -1,5 +1,7 @@
 #include "funcs/funcs.h"
 
+#include "funcs/filter/filter.h"
+
 #include "funcs/visuals/xqz/xqz.h"
 #include "funcs/visuals/info/info.h"
 #include "funcs/visuals/thirdperson/thirdperson.h"
@@ -20,6 +22,8 @@
 
 void Funcs_Init()
 {
+    Filter::Init();
+
     Xqz::Init();
     Info::Init();
     ThirdPerson::Init();
