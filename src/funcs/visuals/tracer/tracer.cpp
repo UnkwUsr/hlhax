@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "utils/cvars/cvars.h"
 #include "utils/shit/shit.h"
+#include <GL/gl.h>
 
 
 
@@ -12,57 +13,65 @@ namespace Cvars
     cvar_t* tracer_r;
     cvar_t* tracer_g;
     cvar_t* tracer_b;
-    cvar_t* tracer_offset;
 }
 
 namespace Tracer {
     DEF_HOOK(HUD_AddEntity)
+    DEF_HOOK(Begin)
 
     void Init()
     {
         ADD_HOOK(HUD_AddEntity, gp_Client)
+        ADD_HOOK(Begin, gp_Engine->pTriAPI)
 
         Cvars::tracer = CREATE_CVAR("tracer", "1");
         Cvars::tracer_width = CREATE_CVAR("tracer_width", "0.3");
         Cvars::tracer_r = CREATE_CVAR("tracer_r", "0");
         Cvars::tracer_g = CREATE_CVAR("tracer_g", "100");
         Cvars::tracer_b = CREATE_CVAR("tracer_b", "100");
-        Cvars::tracer_offset = CREATE_CVAR("tracer_offset", "25");
     }
-
+    void Terminate() {
+        // orig_Begin created by DEF_HOOK, ADD_HOOK, etc.
+        // TODO: bit shitty. must be fixed in future
+        gp_Engine->pTriAPI->Begin = orig_Begin;
+    }
 
     int HUD_AddEntity(int type, cl_entity_t *ent,
         const char *modelname)
     {
         if(Cvars::tracer->value == 0)
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
-        if(!ent->player || !isAlive(ent->curstate))
+        if(!ent->player || !isAlive(ent->curstate) || ent->index == gp_Engine->GetLocalPlayer()->index)
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
 
-        cl_entity_t* me = gp_Engine->GetLocalPlayer();
-        DrawTraceLine(ent, me);
+        Vector vecBegin;
+        VectorCopy(gp_pmove->origin, vecBegin);
+
+        Vector vEye;
+        gp_Engine->pEventAPI->EV_LocalPlayerViewheight(vEye);
+        vecBegin = vecBegin + vEye;
+
+        Vector forward;
+        gp_Engine->pfnAngleVectors(gp_pmove->angles, forward, NULL, NULL);
+        vecBegin = vecBegin + forward * 100;
+
+        DrawLine(vecBegin, ent->origin,
+                Cvars::tracer_r->value, Cvars::tracer_g->value, Cvars::tracer_b->value,
+                0.001, Cvars::tracer_width->value);
+
 
         return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
     }
 
+    // catch drawing beams and make him visible through walls
+    void Begin(int primitiveCode) {
+        if(primitiveCode == TRI_QUADS) {
+            glDisable(GL_DEPTH_TEST);
+        } else {
+            glEnable(GL_DEPTH_TEST);
+        }
 
-    void DrawTraceLine(cl_entity_t *from, cl_entity_t *to)
-    {
-        int beamindex = gp_Engine->pEventAPI->
-            EV_FindModelIndex("sprites/laserbeam.spr");
-
-        float life = 0.001f;
-        float width = Cvars::tracer_width->value;
-        float r = Cvars::tracer_r->value / 255;
-        float g = Cvars::tracer_g->value / 255;
-        float b = Cvars::tracer_b->value / 255;
-
-//      gp_Engine->pEfxAPI->R_BeamEnts(from->index, to->index,
-        vec3_t offseted_to = to->origin;
-
-        offseted_to[2] += Cvars::tracer_offset->value;
-        gp_Engine->pEfxAPI->R_BeamPoints(from->origin, offseted_to,
-            beamindex, life, width, 0, 32, 2, 0, 0, r, g, b);
+        CALL_ORIG(Begin, primitiveCode);
     }
 
-} // namespace Barrel
+} // namespace Tracer
