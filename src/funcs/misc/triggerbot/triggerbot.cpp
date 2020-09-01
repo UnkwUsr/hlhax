@@ -3,6 +3,7 @@
 #include "utils/cmds/cmds.h"
 #include "utils/cvars/cvars.h"
 #include "utils/shit/shit.h"
+#include "funcs/filter/filter.h"
 
 
 
@@ -10,7 +11,6 @@ namespace Cvars {
     cvar_t* triggerbot_attacktype;
     cvar_t* triggerbot_usecmd;
     cvar_t* triggerbot_attackcmd;
-    cvar_t* triggerbot_onlyplayers;
     cvar_t* triggerbot_drawshot;
     cvar_t* triggerbot_drawshot_time;
 }
@@ -31,7 +31,6 @@ namespace TriggerBot {
         Cvars::triggerbot_attacktype = CREATE_CVAR("triggerbot_attacktype", "1");
         Cvars::triggerbot_usecmd = CREATE_CVAR("triggerbot_usecmd", "0");
         Cvars::triggerbot_attackcmd = CREATE_CVAR("triggerbot_attackcmd", "+attack;wait;-attack");
-        Cvars::triggerbot_onlyplayers = CREATE_CVAR("triggerbot_onlyplayers", "1");
         Cvars::triggerbot_drawshot = CREATE_CVAR("triggerbot_drawshot", "0");
         Cvars::triggerbot_drawshot_time = CREATE_CVAR("triggerbot_drawshot_time", "0.5");
     }
@@ -75,10 +74,7 @@ namespace TriggerBot {
         // WARNING! trace->ent is is the number in physent list not the normal entity number
         cl_entity_t* ent = gp_Engine->GetEntityByIndex(gp_pmove->physents[tr->ent].info);
 
-        if(Cvars::triggerbot_onlyplayers->value != 0 && !ent->player)
-            return;
-
-        if(Cvars::triggerbot_onlyplayers->value != 0 && !isAlive(ent->curstate))
+        if(!Filter::isValidPlayer(ent->index))
             return;
 
         // start attack

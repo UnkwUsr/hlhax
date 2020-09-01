@@ -18,16 +18,11 @@ namespace FpsSet {
     {
         ADD_HOOK(CL_CreateMove, gp_Client)
 
+        // Note: before use fps_set keep sure that fps_max is much bigger than fps_critical(just set something like 100000)
+
         CREATE_TGL_CMD("fps_set", fps_set_on, fps_set_off)
 
         Cvars::fps_critical = CREATE_CVAR("fps_critical", "500");
-
-        gp_Engine->pfnClientCmd("alias tgl_fps_set fps_set_on");
-        gp_Engine->pfnClientCmd("alias fps_set_on \"+" CMD_PREFIX"fps_set;alias tgl_fps_set fps_set_off\"");
-        gp_Engine->pfnClientCmd("alias fps_set_off \"-" CMD_PREFIX"fps_set;alias tgl_fps_set fps_set_on\"");
-        gp_Engine->pfnClientCmd("bind mouse5 \"tgl_fps_set;tgl_hud_draw\"");
-
-        gp_Engine->pfnClientCmd("fps_max 10000");
     }
 
 
