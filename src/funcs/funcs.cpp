@@ -55,4 +55,6 @@ void Funcs_Terminate()
     // For example: Init: a, b; then Terminate should be: b, a
     // TODO: gl hooks should be fixed in future
     Xqz::Terminate();
+
+    Filter::Terminate();
 }
