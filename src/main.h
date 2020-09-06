@@ -40,3 +40,4 @@ StudioModelRenderer_t go_StudioModelRenderer;
 
 playermove_t *gp_pmove;
 double* gp_host_frametime;
+UserMsg* gp_ClientUserMsgs;

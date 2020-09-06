@@ -15,10 +15,21 @@
 #include "../sdk/halflife-master/common/triangleapi.h"
 #include "../sdk/halflife-master/common/screenfade.h"
 #include "../sdk/halflife-master/common/net_api.h"
+#include "../sdk/halflife-master/common/parsemsg.h"
 
 #include <inttypes.h>
 
 
+
+// UserMsgs
+typedef struct _UserMsg
+{
+  int iMsg;
+  int iSize;
+  char szName[16];
+  _UserMsg *next;
+  pfnUserMsgHook pfn;
+} UserMsg;
 
 
 typedef void (*xcommand_t) (void);

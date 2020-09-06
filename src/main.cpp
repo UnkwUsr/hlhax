@@ -54,6 +54,11 @@ void findSymbols()
 
     gp_pmove = *(playermove_t**)dlsym(handles::hw, "pmove");
     gp_host_frametime = (double*)dlsym(handles::hw, "host_frametime");
+
+    /* gp_ClientUserMsgs = (UserMsg*)dlsym(handles::hw, "gClientUserMsgs"); */
+    // due to we can't just dlsym "gClientUserMsgs", we use this hack.
+    // Grub pointer from function body. This function has interact with wanted pointer.
+    gp_ClientUserMsgs = **(UserMsg***)((char*)dlsym(handles::hw, "CL_ShutDownUsrMessages") + 0x5);
 }
 
 void copyOriginals()

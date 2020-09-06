@@ -9,7 +9,7 @@
 
 namespace handles {
     extern void* hw;
-    extern void* client;
+    extern void** p_client;
 }
 
 extern cl_enginefunc_t *gp_Engine;
@@ -34,6 +34,7 @@ extern StudioModelRenderer_t go_StudioModelRenderer;
 
 extern playermove_t *gp_pmove;
 extern double* gp_host_frametime;
+extern UserMsg* gp_ClientUserMsgs;
 
 
 
