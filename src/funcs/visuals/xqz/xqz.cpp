@@ -3,6 +3,7 @@
 #include "utils/cvars/cvars.h"
 #include "utils/shit/shit.h"
 #include "funcs/filter/filter.h"
+#include <cstring>
 
 
 
@@ -42,13 +43,12 @@ namespace Xqz {
         }
 
         cl_entity_t* ent = gp_EngStudio->GetCurrentEntity();
+
+        // draw local player and hands with weapon
         if(ent->index == gp_Engine->GetLocalPlayer()->index)
             return CALL_ORIG(StudioRenderModel, this_ptr);
+
         if(!Filter::isValidPlayer(ent->index)) {
-            // don't draw corpses, lol
-            if(!isAlive(ent->curstate)) {
-                return;
-            }
             return CALL_ORIG(StudioRenderModel, this_ptr);
         }
 
