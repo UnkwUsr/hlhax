@@ -21,7 +21,7 @@ namespace SteamidChanger {
     {
         ADD_HOOK(InitiateGameConnection, gp_steamclient_funcs)
 
-        Cvars::steamid = CREATE_CVAR("steamid", "0");
+        Cvars::steamid = CREATE_CVAR("steamid", "1");
         Cvars::steamid_custom = CREATE_CVAR("steamid_custom", "3333333");
     }
 

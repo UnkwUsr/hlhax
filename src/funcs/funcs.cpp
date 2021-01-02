@@ -18,6 +18,9 @@
 #include "funcs/misc/steamid_changer/steamid_changer.h"
 #include "funcs/misc/triggerbot/triggerbot.h"
 
+#include "funcs/aim/fastzoom/fastzoom.h"
+#include "funcs/aim/aimbot/aimbot.h"
+#include "funcs/aim/norecoil/norecoil.h"
 
 
 void Funcs_Init()
@@ -35,6 +38,10 @@ void Funcs_Init()
 
     SteamidChanger::Init();
     TriggerBot::Init();
+
+    NoRecoil::Init();
+    AimBot::Init();
+    FastZoom::Init();
 
     FpsSet::Init();
     Sgs::Init();

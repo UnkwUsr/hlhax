@@ -23,7 +23,7 @@ namespace Tracer {
     void Init()
     {
         ADD_HOOK(HUD_AddEntity, gp_Client)
-        ADD_HOOK(Begin, gp_Engine->pTriAPI)
+        /* ADD_HOOK(Begin, gp_Engine->pTriAPI) */
 
         Cvars::tracer = CREATE_CVAR("tracer", "1");
         Cvars::tracer_width = CREATE_CVAR("tracer_width", "0.3");
@@ -34,7 +34,7 @@ namespace Tracer {
     void Terminate() {
         // orig_Begin created by DEF_HOOK, ADD_HOOK, etc.
         // TODO: bit shitty. must be fixed in future
-        gp_Engine->pTriAPI->Begin = orig_Begin;
+        /* gp_Engine->pTriAPI->Begin = orig_Begin; */
     }
 
     int HUD_AddEntity(int type, cl_entity_t *ent,
