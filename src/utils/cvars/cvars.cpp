@@ -17,7 +17,7 @@ void Cvars_Terminate()
 }
 
 
-// TODO: написать норм функцию удаления кваров
+// TODO: write better function for removing cvars
 void Cvars_RemoveByFlag(int flag)
 {
     cvar_t** p_cvar_vars = (cvar_t**)dlsym(handles::hw, "cvar_vars");
