@@ -4,12 +4,18 @@ HlHaxLib is a linux hack for games based on goldsource engine so this can work f
 # How to startup
 1. Clone this repo.
 2. Download SDK:
-`mkdir sdk`
-`git clone https://github.com/ValveSoftware/halflife.git sdk/halflife-master`
+```
+mkdir sdk
+git clone https://github.com/ValveSoftware/halflife.git sdk/halflife-master
+```
 3. Prepare build folder:
-`mkdir build`
-`cd build`
-`cmake ..`
+```
+mkdir build
+cd build
+cmake ..
+```
 4. Start hl1 (preferably from terminal).
 5. Inject hax (be sure you are in build folder):
-`./inject_tool.sh load`
+```
+./inject_tool.sh load
+```
