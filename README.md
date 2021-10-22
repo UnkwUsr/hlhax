@@ -1,7 +1,9 @@
 # HlHaxLib
-HlHaxLib is a linux hack for games based on goldsource engine so this can work for many games aka half-life 1, counter-strike 1.6, etc.
+HlHaxLib is a linux hack for games based on goldsource engine so this can work
+for many games aka half-life 1, counter-strike 1.6, etc. For features list check
+[src/funcs](src/funcs).
 
-# How to startup
+## Startup
 1. Clone this repo.
 2. Download SDK:
 ```
@@ -19,3 +21,19 @@ cmake ..
 ```
 ./inject_tool.sh load
 ```
+
+## Credits
+Many thanks to all games hacking community, this is a really big scene. Mostly
+it's a site https://www.unknowncheats.me/ , but also I've seen some archived
+forum pages of www.gamedeception.net .
+
+Also thanks to pvpru.com . A long time ago there was many good persons who
+write stuff and share code/instructions about counter-strike 1.6 .
+
+Special thanks to `shelru` for his method of injecting library into process
+using debugger (I found this method from his released extramirror version for
+linux, but after he deleted all stuff related to linux version, so I can't even
+see on it anymore, lol).
+
+And, somewhere in the code I also inserted urls to original sources, but I'm
+sure that's not all.
