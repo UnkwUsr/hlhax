@@ -22,6 +22,13 @@ cmake ..
 ./inject_tool.sh load
 ```
 
+## Goals (aka sweet dreams)
+Autostrafe functions. That's all. Really, I very love cs 1.6 kz hacks like Tkz
+or 101xD. They literally allow you to gain such speed that the player begins to
+fly up on uneven surfaces.
+
+Firstly I want to see it in half-life, and then make it *cross-mod*, to work in cs 1.6.
+
 ## Credits
 Many thanks to all games hacking community, this is a really big scene. Mostly
 it's a site [www.unknowncheats.me](https://www.unknowncheats.me), but also I've seen some archived
