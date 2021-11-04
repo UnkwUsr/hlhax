@@ -22,6 +22,8 @@ cmake ..
 ./inject_tool.sh load
 ```
 
+P.S. injector runs `make` every time, so don't care about it when modify sources.
+
 ## Goals (aka sweet dreams)
 Autostrafe functions. That's all. Really, I very love cs 1.6 kz hacks like Tkz
 or 101xD. They literally allow you to gain such speed that the player begins to
