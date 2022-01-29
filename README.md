@@ -39,6 +39,8 @@ forum pages of [www.gamedeception.net](https://www.gamedeception.net).
 Also thanks to russian forum [pvpru.com](https://pvpru.com). A long time ago there was many good persons who
 write stuff and share code/instructions about counter-strike 1.6 .
 
+Unknown Russian site with a lot of useful information about hacks in cs 1.6: http://troll-homepage.narod.ru/
+
 Special thanks to `shelru` for his method of injecting library into process
 using debugger (I found this method from his released extramirror version for
 linux, but after he deleted all stuff related to linux version, so I can't even
