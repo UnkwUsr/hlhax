@@ -104,10 +104,6 @@ typedef struct StudioModelRenderer_s {
     // Local interfaces
     //
 
-    // P.S. other bases dont have this func
-    // P.P.S. maybe wrong return_type and params DDDD:
-    int (*GetPlayerModel) (void* this_ptr, int);
-
     // Look up animation data for sequence
     // P.S. in other bases i know this have wrong return type: mstudioanim_t instead mstudioanim_t* :DD
     mstudioanim_t* (*StudioGetAnim) (void* this_ptr, model_t *m_pSubModel, mstudioseqdesc_t *pseqdesc);
