@@ -5,6 +5,7 @@
 #include <cstring>
 
 
+bool is_loaded = false;
 
 
 __attribute__((constructor))
@@ -17,23 +18,44 @@ void on_load()
     copyOriginals();
 
     Hack_Init();
+
+    is_loaded = true;
 }
 
 __attribute__((destructor))
 void on_un_load()
 {
-    Hack_Terminate();
+    if(is_loaded) {
+        Hack_Terminate();
 
-    restoreOriginals();
+        restoreOriginals();
+    }
 
     printf("HLhack UNLOADED\n");
 }
 
+void self_unload()
+{
+    void* me = dlopen("libhlhack.so", RTLD_LAZY | RTLD_NOLOAD);
+    dlclose(me);
+    dlclose(me);
+}
 
 void getModulesHandles()
 {
     handles::hw = dlopen("hw.so", RTLD_LAZY | RTLD_NOLOAD);
+    if(!handles::hw) {
+        printf("[error] handles::hw is null, aborting\n");
+        self_unload();
+        // all next code is unreachable
+    }
+
     handles::p_client = (void**)dlsym(handles::hw, "hClientDLL");
+    if(!handles::p_client) {
+        printf("[error] handles::p_client is null, aborting\n");
+        self_unload();
+        // all next code is unreachable
+    }
 
     g_hw_addr = getModuleAddr("hw.so");
 }
