@@ -3,6 +3,12 @@ HlHaxLib is a linux hack for games based on goldsource engine so this can work
 for many games aka half-life 1, counter-strike 1.6, etc. For features list check
 [src/funcs](src/funcs).
 
+## Demo
+<details>
+  <summary>Screenshot</summary>
+  <img src="https://user-images.githubusercontent.com/49063932/159180098-ed79210e-4008-4c9e-9699-12cf9bebb7c0.png" alt="demo image"/>
+</details>
+
 ## Startup
 1. Clone this repo.
 2. Download SDK:
