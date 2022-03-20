@@ -32,7 +32,7 @@ void on_un_load()
 
 void getModulesHandles()
 {
-    handles::hw = dlopen("hw.so", RTLD_NOLOAD);
+    handles::hw = dlopen("hw.so", RTLD_LAZY | RTLD_NOLOAD);
     handles::p_client = (void**)dlsym(handles::hw, "hClientDLL");
 
     g_hw_addr = getModuleAddr("hw.so");
