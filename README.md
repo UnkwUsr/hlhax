@@ -22,13 +22,20 @@ mkdir build
 cd build
 cmake ..
 ```
-4. Start hl1 (preferably from terminal).
-5. Inject hax (be sure you are in build folder):
+4. Actually build:
+```
+make
+```
+5. Start hl1 (preferably from terminal).
+6. Inject hax (be sure you are in build folder):
 ```
 ./inject_tool.sh load
 ```
-
 P.S. injector runs `make` every time, so don't care about it when modify sources.
+
+7. To make sure that hax loaded fine, check in-game console and find line "Hack
+   loaded FINE". Also you can try to start typing `hx_` or `cv_` and there is
+   should popup comletion list.
 
 ## Goals (aka sweet dreams)
 Autostrafe functions. That's all. Really, I very love cs 1.6 kz hacks like Tkz
