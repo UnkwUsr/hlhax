@@ -1,21 +1,18 @@
 #include "globals.h"
-#include "utils/cmds/cmds.h"
 #include "utils/cvars/cvars.h"
 #include <string.h>
 #include <dlfcn.h>
 
-
+void Cvars_RemoveByFlag(int flag);
 
 void Cvars_Init()
 {
-    CREATE_CMD("dump_cvars", dump_cvars_f)
 }
 
 void Cvars_Terminate()
 {
     Cvars_RemoveByFlag(HAX_CVAR_FLAG);
 }
-
 
 // TODO: write better function for removing cvars
 void Cvars_RemoveByFlag(int flag)
@@ -65,15 +62,5 @@ LABEL_7:
             v3 = v5;
         }
         *p_cvar_vars = v3;
-    }
-}
-
-void dump_cvars_f()
-{
-    cvar_t* first_cvar = (cvar_t*)gp_Engine->GetFirstCvarPtr();
-
-    for(cvar_t *i = first_cvar; i; i = i->next)
-    {
-        gp_Engine->Con_Printf("%s\n", i->name);
     }
 }

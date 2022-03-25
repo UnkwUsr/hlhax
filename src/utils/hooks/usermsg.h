@@ -16,7 +16,7 @@ UserMsg* FindUserMsg(const char* MsgName) {
         Ptr = Ptr->next;
     }
 
-    gp_Engine->Con_Printf("[hlhax WARNING!] Can't find %s usermsg\n", MsgName);
+    gp_Engine->Con_Printf("[hlhax] Can't find %s usermsg\n", MsgName);
     return NULL;
 }
 

@@ -31,7 +31,7 @@ void unprotectAddr(void* place)
     if(res == -1)
     {
         auto er = errno;
-        printf("Error unprotecting %p: %s\n", place, strerror(er));
+        printf("[hlhax] Error unprotecting %p: %s\n", place, strerror(er));
     }
     }
 
