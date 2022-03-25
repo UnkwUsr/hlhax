@@ -1,4 +1,4 @@
-#include "funcs/misc/triggerbot/triggerbot.h"
+#include "funcs/aim/triggerbot/triggerbot.h"
 #include "globals.h"
 #include "utils/cmds/cmds.h"
 #include "utils/cvars/cvars.h"

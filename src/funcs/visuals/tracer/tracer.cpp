@@ -56,7 +56,9 @@ namespace Tracer {
         gp_Engine->pfnAngleVectors(gp_pmove->angles, forward, NULL, NULL);
         vecBegin = vecBegin + forward * 100;
 
-        DrawLine(vecBegin, ent->origin,
+        Vector vecEnd = ent->origin;
+
+        DrawLine(vecBegin, vecEnd,
                 Cvars::tracer_r->value, Cvars::tracer_g->value, Cvars::tracer_b->value,
                 0.001, Cvars::tracer_width->value);
 
