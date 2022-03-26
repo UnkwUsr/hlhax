@@ -1,6 +1,8 @@
 #include "main.h"
 #include "utils/mem/mem.h"
-#include "hack.h"
+#include "funcs/funcs.h"
+#include "utils/cmds/cmds.h"
+#include "utils/cvars/cvars.h"
 #include <dlfcn.h>
 #include <cstring>
 
@@ -11,13 +13,17 @@ bool is_loaded = false;
 __attribute__((constructor))
 void on_load()
 {
-    printf("\nHLhack LOADED\n");
+    printf("\nhlhax loading\n");
 
     getModulesHandles();
     findSymbols();
     copyOriginals();
 
-    Hack_Init();
+    Cmds_Init();
+    Cvars_Init();
+    Funcs_Init();
+
+    gp_Engine->Con_Printf("hlhax loaded\n");
 
     is_loaded = true;
 }
@@ -25,13 +31,17 @@ void on_load()
 __attribute__((destructor))
 void on_un_load()
 {
-    if(is_loaded) {
-        Hack_Terminate();
+    gp_Engine->Con_Printf("hlhax unloading\n");
 
+    if(is_loaded) {
         restoreOriginals();
+
+        Cmds_Terminate();
+        Cvars_Terminate();
+        Funcs_Terminate();
     }
 
-    printf("HLhack UNLOADED\n");
+    printf("hlhax unloaded\n");
 }
 
 void self_unload()
