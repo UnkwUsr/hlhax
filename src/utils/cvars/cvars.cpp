@@ -1,18 +1,7 @@
-#include "globals.h"
 #include "utils/cvars/cvars.h"
-#include <string.h>
+#include "globals.h"
 #include <dlfcn.h>
-
-void Cvars_RemoveByFlag(int flag);
-
-void Cvars_Init()
-{
-}
-
-void Cvars_Terminate()
-{
-    Cvars_RemoveByFlag(HAX_CVAR_FLAG);
-}
+#include <string.h>
 
 // TODO: write better function for removing cvars
 void Cvars_RemoveByFlag(int flag)
@@ -63,4 +52,8 @@ LABEL_7:
         }
         *p_cvar_vars = v3;
     }
+}
+
+void Cvars_Clear() {
+    Cvars_RemoveByFlag(HAX_CVAR_FLAG);
 }

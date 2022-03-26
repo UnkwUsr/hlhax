@@ -1,9 +1,6 @@
 #ifndef CVARS_H
 #define CVARS_H
 
-void Cvars_Init();
-void Cvars_Terminate();
-
 
 #define HAX_CVAR_FLAG 8192
 
