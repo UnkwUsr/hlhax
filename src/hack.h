@@ -5,8 +5,5 @@
 void Hack_Init();
 void Hack_Terminate();
 
-// funcs for commands
-void dump_aliases_f();
-
 
 #endif // HACK_H
