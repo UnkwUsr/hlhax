@@ -10,16 +10,17 @@
 #include "funcs/visuals/noflash/noflash.h"
 #include "funcs/visuals/tracer/tracer.h"
 #include "funcs/visuals/esp/esp.h"
+#include "funcs/visuals/fullbright/fullbright.h"
 
 #include "funcs/movement/fps_set/fps_set.h"
 #include "funcs/movement/sgs/sgs.h"
 #include "funcs/movement/spinhack/spinhack.h"
 
 #include "funcs/misc/steamid_changer/steamid_changer.h"
-#include "funcs/misc/triggerbot/triggerbot.h"
 
 #include "funcs/aim/fastzoom/fastzoom.h"
 #include "funcs/aim/aimbot/aimbot.h"
+#include "funcs/aim/triggerbot/triggerbot.h"
 #include "funcs/aim/norecoil/norecoil.h"
 
 
@@ -35,12 +36,13 @@ void Funcs_Init()
     NoFlash::Init();
     Tracer::Init();
     Esp::Init();
+    Fullbright::Init();
 
     SteamidChanger::Init();
-    TriggerBot::Init();
 
-    NoRecoil::Init();
     AimBot::Init();
+    TriggerBot::Init();
+    NoRecoil::Init();
     FastZoom::Init();
 
     FpsSet::Init();
@@ -55,6 +57,7 @@ void Funcs_Init()
 void Funcs_Terminate()
 {
     Tracer::Terminate();
+    Fullbright::Terminate();
 
     // because of specific gl hooks,
     // if one gl function hooked in two funcs, then

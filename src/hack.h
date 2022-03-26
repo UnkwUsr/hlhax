@@ -8,7 +8,5 @@ void Hack_Terminate();
 // funcs for commands
 void dump_aliases_f();
 
-void set_filter_color_f();
-
 
 #endif // HACK_H
