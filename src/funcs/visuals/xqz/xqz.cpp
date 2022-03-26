@@ -1,7 +1,7 @@
 #include "funcs/visuals/xqz/xqz.h"
 #include "globals.h"
 #include "utils/cvars/cvars.h"
-#include "utils/shit/shit.h"
+#include "funcs/utils.h"
 #include "funcs/filter/filter.h"
 #include <cstring>
 

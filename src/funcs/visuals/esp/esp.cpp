@@ -1,7 +1,7 @@
 #include "funcs/visuals/esp/esp.h"
 #include "globals.h"
 #include "utils/cvars/cvars.h"
-#include "utils/shit/shit.h"
+#include "funcs/utils.h"
 #include "funcs/filter/filter.h"
 
 

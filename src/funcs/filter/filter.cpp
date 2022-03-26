@@ -2,7 +2,7 @@
 #include "globals.h"
 #include "utils/cvars/cvars.h"
 #include "utils/hooks/usermsg.h"
-#include "utils/shit/shit.h"
+#include "funcs/utils.h"
 #include <cstring>
 
 

@@ -1,4 +1,4 @@
-#include "utils/shit/shit.h"
+#include "funcs/utils.h"
 #include "globals.h"
 
 
