@@ -6,7 +6,6 @@
 #include "funcs/visuals/info/info.h"
 #include "funcs/visuals/thirdperson/thirdperson.h"
 #include "funcs/visuals/barrel/barrel.h"
-#include "funcs/visuals/wiremodels/wiremodels.h"
 #include "funcs/visuals/noflash/noflash.h"
 #include "funcs/visuals/tracer/tracer.h"
 #include "funcs/visuals/esp/esp.h"
@@ -32,7 +31,6 @@ void Funcs_Init()
     Info::Init();
     ThirdPerson::Init();
     Barrel::Init();
-//  WireModels::Init();
     NoFlash::Init();
     Tracer::Init();
     Esp::Init();
