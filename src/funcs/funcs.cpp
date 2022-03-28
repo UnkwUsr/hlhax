@@ -54,7 +54,6 @@ void Funcs_Init()
 
 void Funcs_Terminate()
 {
-    Tracer::Terminate();
     Fullbright::Terminate();
 
     // because of specific gl hooks,

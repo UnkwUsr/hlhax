@@ -18,23 +18,21 @@ namespace Cvars
 
 namespace Tracer {
     DEF_HOOK(HUD_AddEntity)
-    DEF_HOOK(Begin)
+    DEF_HOOK(Color4f)
+
+    // to uniquely identify when our tracer beam is rendering
+    const float UNIQ_VALUE_ALPHA = 5.93;
 
     void Init()
     {
         ADD_HOOK(HUD_AddEntity, gp_Client)
-        /* ADD_HOOK(Begin, gp_Engine->pTriAPI) */
+        ADD_HOOK(Color4f, gp_Engine->pTriAPI)
 
         Cvars::tracer = CREATE_CVAR("tracer", "1");
         Cvars::tracer_width = CREATE_CVAR("tracer_width", "0.3");
         Cvars::tracer_r = CREATE_CVAR("tracer_r", "0");
         Cvars::tracer_g = CREATE_CVAR("tracer_g", "100");
         Cvars::tracer_b = CREATE_CVAR("tracer_b", "100");
-    }
-    void Terminate() {
-        // orig_Begin created by DEF_HOOK, ADD_HOOK, etc.
-        // TODO: bit shitty. must be fixed in future
-        /* gp_Engine->pTriAPI->Begin = orig_Begin; */
     }
 
     int HUD_AddEntity(int type, cl_entity_t *ent,
@@ -58,23 +56,21 @@ namespace Tracer {
 
         Vector vecEnd = ent->origin;
 
-        DrawLine(vecBegin, vecEnd,
-                Cvars::tracer_r->value, Cvars::tracer_g->value, Cvars::tracer_b->value, 1,
-                0.001, Cvars::tracer_width->value);
-
+        DrawLine(vecBegin, vecEnd, Cvars::tracer_r->value,
+                 Cvars::tracer_g->value, Cvars::tracer_b->value,
+                 UNIQ_VALUE_ALPHA, 0.001, Cvars::tracer_width->value);
 
         return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
     }
 
     // catch drawing beams and make him visible through walls
-    void Begin(int primitiveCode) {
-        if(primitiveCode == TRI_QUADS) {
-            glDisable(GL_DEPTH_TEST);
-        } else {
-            glEnable(GL_DEPTH_TEST);
-        }
+    void Color4f(float r, float g, float b, float a) {
+        CALL_ORIG(Color4f, r, g, b, a);
 
-        CALL_ORIG(Begin, primitiveCode);
+        if(a == UNIQ_VALUE_ALPHA)
+            glDisable(GL_DEPTH_TEST);
+        else
+            glEnable(GL_DEPTH_TEST);
     }
 
 } // namespace Tracer
