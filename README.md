@@ -30,7 +30,7 @@ check [src/funcs](src/funcs).
 5. Start hl1 (preferably from terminal).
 6. Inject hax (be sure you are in build folder):
 
-        ./inject_tool.sh load
+        ./injector.sh load
 
     P.S. injector runs `make` every time, so don't care about it when modify
     sources.

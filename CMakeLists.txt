@@ -13,8 +13,8 @@ include_directories(sdk/halflife-master/common
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp
     sdk/halflife-master/common/parsemsg.cpp
     )
-# copy inject tool to build directory
-configure_file(inject_tool.sh ./
+# copy injector to build directory
+configure_file(injector.sh ./
                    @ONLY)
 
 add_compile_definitions(CMD_PREFIX="hx_")
