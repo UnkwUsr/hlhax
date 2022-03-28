@@ -25,8 +25,6 @@ namespace Sgs {
         Cvars::sgs_standup = CREATE_CVAR("sgs_standup", "0");
         // Cvars::sgs_slowdown = CREATE_CVAR("sgs_slowdown", "0");
         Cvars::sgs_bhop = CREATE_CVAR("sgs_bhop", "0");
-
-        gp_Engine->pfnClientCmd("bind shift +" CMD_PREFIX"sgs");
     }
 
 

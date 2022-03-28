@@ -26,7 +26,6 @@ namespace TriggerBot {
         ADD_HOOK(CL_CreateMove, gp_Client)
 
         CREATE_TGL_CMD("triggerbot", triggerbot_on, triggerbot_off)
-        /* gp_Engine->pfnClientCmd("bind mouse4 +" CMD_PREFIX"triggerbot"); */
 
         Cvars::triggerbot_attacktype = CREATE_CVAR("triggerbot_attacktype", "1");
         Cvars::triggerbot_usecmd = CREATE_CVAR("triggerbot_usecmd", "0");
