@@ -22,6 +22,7 @@ steamclient_funcs_t go_steamclient_funcs;
 r_studio_interface_t go_Studio;
 engine_studio_api_t go_EngStudio;
 StudioModelRenderer_t go_StudioModelRenderer;
+triangleapi_t go_TriApi;
 
 playermove_t* gp_pmove = NULL;
 double* gp_host_frametime = NULL;
@@ -129,6 +130,7 @@ void copyOriginals() {
 
     memcpy(&go_Studio, gp_Studio, sizeof(r_studio_interface_t));
     memcpy(&go_EngStudio, gp_EngStudio, sizeof(engine_studio_api_t));
+    memcpy(&go_TriApi, gp_Engine->pTriAPI, sizeof(triangleapi_t));
     memcpy(&go_StudioModelRenderer, gp_StudioModelRenderer,
            sizeof(StudioModelRenderer_t));
 
@@ -142,6 +144,7 @@ void restoreOriginals() {
 
     memcpy(gp_Studio, &go_Studio, sizeof(r_studio_interface_t));
     memcpy(gp_EngStudio, &go_EngStudio, sizeof(engine_studio_api_t));
+    memcpy(gp_Engine->pTriAPI, &go_TriApi, sizeof(triangleapi_t));
     memcpy(gp_StudioModelRenderer, &go_StudioModelRenderer,
            sizeof(StudioModelRenderer_t));
 
