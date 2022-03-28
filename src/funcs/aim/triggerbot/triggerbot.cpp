@@ -86,7 +86,7 @@ namespace TriggerBot {
             cmd->buttons |= IN_ATTACK2;
 
         if(Cvars::triggerbot_drawshot->value != 0)
-            DrawLine(vecBegin, tr->endpos, 255, 0, 0,
+            DrawLine(vecBegin, tr->endpos, 255, 0, 0, 1,
                     Cvars::triggerbot_drawshot_time->value, 0.8);
 
 

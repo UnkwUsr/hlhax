@@ -59,7 +59,7 @@ namespace Tracer {
         Vector vecEnd = ent->origin;
 
         DrawLine(vecBegin, vecEnd,
-                Cvars::tracer_r->value, Cvars::tracer_g->value, Cvars::tracer_b->value,
+                Cvars::tracer_r->value, Cvars::tracer_g->value, Cvars::tracer_b->value, 1,
                 0.001, Cvars::tracer_width->value);
 
 

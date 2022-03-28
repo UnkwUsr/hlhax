@@ -59,7 +59,7 @@ namespace Barrel {
         pmtrace_t *pmtrace = gp_Engine->PM_TraceLine(vecBegin, vecEnd, PM_TRACELINE_PHYSENTSONLY, 2, -1 );
 
         DrawLine(vecBegin, pmtrace->endpos,
-                Cvars::barrel_r->value, Cvars::barrel_g->value, Cvars::barrel_b->value,
+                Cvars::barrel_r->value, Cvars::barrel_g->value, Cvars::barrel_b->value, 1,
                 0.001, Cvars::barrel_width->value);
 
 
