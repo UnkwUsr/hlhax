@@ -3,7 +3,6 @@
 
 #include "sdk.h"
 
-typedef void (*f_malloc_cmd_t) (char *cmd_name, xcommand_t function, int flags);
 extern f_malloc_cmd_t f_Cmds_AddMalloc;
 
 

@@ -40,6 +40,7 @@ typedef struct cmd_function_s
     xcommand_t              function;
 } cmd_function_t;
 
+typedef void (*f_malloc_cmd_t) (char *cmd_name, xcommand_t function, int flags);
 
 typedef struct cl_clientfuncs_s
 {
