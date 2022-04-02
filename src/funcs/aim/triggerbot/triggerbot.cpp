@@ -66,10 +66,6 @@ namespace TriggerBot {
         Vector vecEnd = vecBegin + forward * 8192;
 
         pmtrace_t *tr = gp_Engine->PM_TraceLine( vecBegin, vecEnd, PM_TRACELINE_PHYSENTSONLY, 2, -1 );
-        /* pmtrace_t tra; */
-        /* gp_Engine->pEventAPI->EV_SetTraceHull(2); */
-        /* gp_Engine->pEventAPI->EV_PlayerTrace(vecBegin, vecEnd, PM_GLASS_IGNORE, -1, &tra); */
-        /* pmtrace_t *tr = &tra; */
 
         // hit map
         if(tr->ent <= 0)
@@ -80,7 +76,7 @@ namespace TriggerBot {
             return;
         }
 
-        // WARNING! trace->ent is is the number in physent list not the normal entity number
+        // WARNING! trace->ent is is the number in physent list, not the normal entity number
         cl_entity_t* ent = gp_Engine->GetEntityByIndex(gp_pmove->physents[tr->ent].info);
 
         if(!Filter::isValidPlayer(ent->index))
@@ -97,29 +93,6 @@ namespace TriggerBot {
         if(Cvars::triggerbot_drawshot->value != 0)
             DrawLine(vecBegin, tr->endpos, 255, 0, 0, 1,
                     Cvars::triggerbot_drawshot_time->value, 0.8);
-
-
-        // method2 (not yet completed). Expalin: if player model in center of screen - then we attack
-        /* gp_Engine->Con_Printf("start\n"); */
-        /* // skip 1. That always is current map (.bsp) */
-        /* for(int i = 1; i <= gp_Engine->GetMaxClients(); i++) */
-        /* { */
-        /*     if(i == gp_Engine->GetLocalPlayer()->index) */
-        /*         continue; */
-
-        /*     cl_entity_t* ent = gp_Engine->GetEntityByIndex(i); */
-
-        /*     if(!ent->player) */
-        /*         continue; */
-
-        /*     /1* gp_Engine->Con_Printf("model: %s\n", ent->model->name); *1/ */
-
-        /*     float screen_coords[2]; */
-        /*     if(WorldToScreen(ent->origin, screen_coords)) { */
-        /*         gp_Engine->Con_Printf("%f     %f\n", screen_coords[0], screen_coords[1]); */
-        /*     } */
-        /* } */
-        /* gp_Engine->Con_Printf("end\n"); */
     }
 
 } // namespace TriggerBot
