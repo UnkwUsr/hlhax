@@ -18,16 +18,18 @@ namespace Filter {
     DEF_HOOK(HUD_AddEntity)
     DEF_HOOK(TeamInfo)
 
-    bool players[32];
-    char playersteam[32][MAX_TEAM_NAME];
+    player_s players[32];
 
     void Init()
     {
-        for(int i = 0; i < 32; i++)
-            players[i] = false;
-        for(int i = 0; i < 32; i++)
-            // TODO: need add func called on reconnect for reset team for all players
-            playersteam[i][0] = '\0';
+        for(int i = 0; i < 32; i++) {
+            player_s player = {false, '\0'};
+            players[i] = player;
+        }
+        // TODO: need add func called on reconnect for reset team for all players
+
+        // TODO: on hud_redraw (or something) add clearing field 'valid' for
+        // all players. It should be cleared before hud_addentitt
 
         Cvars::filter_ignore_teammates = CREATE_CVAR("filter_ignore_teammates", "1");
         Cvars::filter_check_player = CREATE_CVAR("filter_check_player", "1");
@@ -54,7 +56,7 @@ namespace Filter {
         }
 
         /* gp_Engine->Con_Printf("team %s for %i\n", szTeam, iIndex); */
-        strcpy(playersteam[iIndex], szTeam);
+        strcpy(players[iIndex].team_name, szTeam);
 
         return CALL_ORIG(TeamInfo, pszName, iSize, pbuf);
     }
@@ -65,7 +67,7 @@ namespace Filter {
         if(ent->index > 32 || ent->index < 0)
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
 
-        players[ent->index] = false;
+        players[ent->index].valid = false;
 
         if(Cvars::filter_check_player->value != 0 && !ent->player)
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
@@ -76,7 +78,7 @@ namespace Filter {
         if(Cvars::filter_ignore_teammates->value != 0 && isTeammate(ent->index))
             return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
 
-        players[ent->index] = true;
+        players[ent->index].valid = true;
 
         return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
     }
@@ -91,13 +93,13 @@ namespace Filter {
                 gp_Engine->GetLocalPlayer()->curstate.messagenum)
             return false;
 
-        return players[index];
+        return players[index].valid;
     }
 
     bool isTeammate(int index) {
-        if(playersteam[index][0] == '\0')
+        if(players[index].team_name[0] == '\0')
             return false;
-        if(strcmp(playersteam[index], playersteam[gp_Engine->GetLocalPlayer()->index]) == 0)
+        if(strcmp(players[index].team_name, players[gp_Engine->GetLocalPlayer()->index].team_name) == 0)
             return true;
 
         return false;

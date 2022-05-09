@@ -5,7 +5,14 @@
 #include "utils/hooks/funcs.h"
 
 
+struct player_s {
+    bool valid;
+    char team_name[MAX_TEAM_NAME];
+};
+
 namespace Filter {
+    extern player_s players[32];
+
     void Init();
     void SetHooks();
     void Terminate();
