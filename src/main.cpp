@@ -29,6 +29,9 @@ void on_load()
 
     Funcs_Init();
 
+    // file hlhax.cfg should be near hl.sh or in mod dir (cstrike, valve, etc.)
+    gp_Engine->pfnClientCmd("exec hlhax.cfg");
+
     gp_Engine->Con_Printf("hlhax loaded\n");
 
     is_loaded = true;
