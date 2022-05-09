@@ -8,6 +8,7 @@
 struct player_s {
     bool valid;
     uint distance;
+    float view_angle;
     char team_name[MAX_TEAM_NAME];
 };
 

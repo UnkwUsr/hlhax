@@ -7,6 +7,8 @@
 
 
 
+float AngleBetweenVectors(Vector v1, Vector v2);
+
 namespace Cvars
 {
     cvar_t* filter_ignore_teammates;
@@ -24,7 +26,7 @@ namespace Filter {
     void Init()
     {
         for(int i = 0; i < 32; i++) {
-            player_s player = {false, 0, '\0'};
+            player_s player = {false, 0, 0.0, '\0'};
             players[i] = player;
         }
         // TODO: need add func called on reconnect for reset team for all players
@@ -88,11 +90,19 @@ namespace Filter {
     void CL_CreateMove(float frametime, usercmd_t *cmd, int active) {
         CALL_ORIG(CL_CreateMove, frametime, cmd, active);
 
-        for(int i = 0; i < 32; i++) {
+        for(int i = 1; i < 32; i++) {
+            if(!players[i].valid)
+                continue;
+
             cl_entity_t* ent = gp_Engine->GetEntityByIndex(i);
 
-            Vector vDiff = ent->origin - gp_pmove->origin;
+            Vector vDiff = gp_pmove->origin - ent->origin;
             players[i].distance = vDiff.Length();
+
+            Vector vAim;
+            gp_Engine->pfnAngleVectors(ent->angles, vAim, NULL, NULL);
+            float angle = AngleBetweenVectors(vAim, vDiff);
+            players[i].view_angle = angle;
         }
     }
 
@@ -118,3 +128,18 @@ namespace Filter {
         return false;
     }
 } // namespace Filter
+
+
+float AngleBetweenVectors( Vector v1, Vector v2 ) {
+    float l1 = v1.Length();
+    float l2 = v2.Length();
+
+    if ( !l1 || !l2 )
+        return 0.0f;
+
+    float dot = DotProduct(v1, v2);
+    float angle = acos(dot / (l1 * l2));
+    angle = (angle  * 180.0f) / M_PI;
+
+    return angle;
+}
