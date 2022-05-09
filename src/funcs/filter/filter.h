@@ -7,6 +7,7 @@
 
 struct player_s {
     bool valid;
+    uint distance;
     char team_name[MAX_TEAM_NAME];
 };
 
@@ -20,6 +21,7 @@ namespace Filter {
     DECL_HOOK(int, HUD_AddEntity, int type, cl_entity_t *ent,
         const char *modelname)
     DECL_HOOK(int, TeamInfo, const char *pszName, int iSize, void *pbuf)
+    DECL_HOOK(void, CL_CreateMove, float frametime, usercmd_t *cmd, int active)
 
     bool isValidPlayer(int index);
 

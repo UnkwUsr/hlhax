@@ -16,6 +16,7 @@ namespace Cvars
 
 namespace Filter {
     DEF_HOOK(HUD_AddEntity)
+    DEF_HOOK(CL_CreateMove)
     DEF_HOOK(TeamInfo)
 
     player_s players[32];
@@ -23,7 +24,7 @@ namespace Filter {
     void Init()
     {
         for(int i = 0; i < 32; i++) {
-            player_s player = {false, '\0'};
+            player_s player = {false, 0, '\0'};
             players[i] = player;
         }
         // TODO: need add func called on reconnect for reset team for all players
@@ -37,6 +38,7 @@ namespace Filter {
     }
     void SetHooks() {
         ADD_HOOK(HUD_AddEntity, gp_Client)
+        ADD_HOOK(CL_CreateMove, gp_Client)
         ADD_USERMSG_HOOK(TeamInfo)
     }
     void Terminate() {
@@ -81,6 +83,17 @@ namespace Filter {
         players[ent->index].valid = true;
 
         return CALL_ORIG(HUD_AddEntity, type, ent, modelname);
+    }
+
+    void CL_CreateMove(float frametime, usercmd_t *cmd, int active) {
+        CALL_ORIG(CL_CreateMove, frametime, cmd, active);
+
+        for(int i = 0; i < 32; i++) {
+            cl_entity_t* ent = gp_Engine->GetEntityByIndex(i);
+
+            Vector vDiff = ent->origin - gp_pmove->origin;
+            players[i].distance = vDiff.Length();
+        }
     }
 
 
