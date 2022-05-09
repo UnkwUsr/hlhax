@@ -14,6 +14,7 @@ namespace Cvars
     cvar_t* tracer_r;
     cvar_t* tracer_g;
     cvar_t* tracer_b;
+    cvar_t* tracer_fix_walls;
 }
 
 namespace Tracer {
@@ -33,6 +34,7 @@ namespace Tracer {
         Cvars::tracer_r = CREATE_CVAR("tracer_r", "0");
         Cvars::tracer_g = CREATE_CVAR("tracer_g", "100");
         Cvars::tracer_b = CREATE_CVAR("tracer_b", "100");
+        Cvars::tracer_fix_walls = CREATE_CVAR("tracer_fix_walls", "1");
     }
 
     int HUD_AddEntity(int type, cl_entity_t *ent,
@@ -66,6 +68,9 @@ namespace Tracer {
     // catch drawing beams and make him visible through walls
     void Color4f(float r, float g, float b, float a) {
         CALL_ORIG(Color4f, r, g, b, a);
+
+        if(Cvars::tracer_fix_walls->value == 0)
+            return;
 
         if(a == UNIQ_VALUE_ALPHA)
             glDisable(GL_DEPTH_TEST);
