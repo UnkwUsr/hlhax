@@ -15,6 +15,7 @@ namespace Cvars
     cvar_t* esp_box_b;
     cvar_t* esp_name;
     cvar_t* esp_distance;
+    cvar_t* esp_view_angle;
 }
 
 namespace Esp {
@@ -30,6 +31,7 @@ namespace Esp {
         Cvars::esp_box_b = CREATE_CVAR("esp_box_b", "255");
         Cvars::esp_name = CREATE_CVAR("esp_name", "1");
         Cvars::esp_distance = CREATE_CVAR("esp_distance", "0");
+        Cvars::esp_view_angle = CREATE_CVAR("esp_view_angle", "0");
     }
 
 
@@ -69,6 +71,17 @@ namespace Esp {
                     gp_Engine->pfnDrawConsoleString(
                             Screen[0], Screen[1] + 60,
                             (char*)distance.c_str());
+                }
+
+                if(Cvars::esp_view_angle->value != 0)
+                {
+                    std::string str =
+                        std::to_string((int)Filter::players[i].view_angle);
+
+                    gp_Engine->pfnDrawSetTextColor(1, 1, 1);
+                    gp_Engine->pfnDrawConsoleString(
+                            Screen[0], Screen[1] + 80,
+                            (char*)str.c_str());
                 }
             }
         }
