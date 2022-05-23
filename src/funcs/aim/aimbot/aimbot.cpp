@@ -109,7 +109,7 @@ namespace AimBot {
 
 
     int FindTargetId(Vector *out_vAimAngles) {
-        float min_distance = 9999999;
+        float min_rating = 9999999;
         int targetid = -1;
 
         for(int i = 1; i <= gp_Engine->GetMaxClients(); i++)
@@ -141,11 +141,11 @@ namespace AimBot {
             if(!Filter::isValidPlayer(entindex))
                 continue;
 
-            float distance = vDiff.Length();
-            if(distance > min_distance)
+            float rating = Filter::targetRating(i);
+            if(rating > min_rating)
                 continue;
 
-            min_distance = distance;
+            min_rating = rating;
             *out_vAimAngles = vAimAngles;
             targetid = i;
         }
