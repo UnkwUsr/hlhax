@@ -127,6 +127,14 @@ namespace Filter {
 
         return false;
     }
+
+    // lower rating - better target to choose
+    int targetRating(int index) {
+        player_s target = players[index];
+
+        // TODO: more complex calculation (with distance)
+        return target.view_angle * (target.distance / 10);
+    }
 } // namespace Filter
 
 

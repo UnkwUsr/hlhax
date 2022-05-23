@@ -27,6 +27,8 @@ namespace Filter {
     bool isValidPlayer(int index);
 
     bool isTeammate(int index);
+
+    int targetRating(int index);
 } // namespace Filter
 
 #endif // FILTER_H
