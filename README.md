@@ -16,23 +16,32 @@ check [src/funcs](src/funcs).
 1. Clone this repo.
 2. Download SDK:
 
-        mkdir sdk git clone https://github.com/ValveSoftware/halflife.git
-        sdk/halflife-master
+    ```bash
+     mkdir sdk
+     git clone https://github.com/ValveSoftware/halflife.git sdk/halflife-master
+    ```
 
 3. Prepare build folder:
 
-        mkdir build cd build cmake ..
+    ```bash
+     mkdir build
+     cd build
+     cmake ..
+    ```
 
 4. Actually build:
-
-        make
+    ```bash
+     make
+    ```
 
 5. Start hl1 (preferably from terminal).
 6. Inject hax (be sure you are in build folder):
 
-        ./injector.sh load
+    ```bash
+     ./injector.sh load
+    ```
 
-    P.S. injector runs `make` every time, so don't care about it when modify
+    P.S. injector runs `make` every time, so don't worry about modifying
     sources.
 
 7. Make sure hax loaded fine.
@@ -51,7 +60,7 @@ cs 1.6.
 
 ## Credits
 
-Many thanks to all games hacking community, this is a really big scene. Mostly
+Many thanks to all game hacking communities, this is a really big scene. Mostly
 it's a site [www.unknowncheats.me](https://www.unknowncheats.me), but also I've
 seen some archived forum pages of
 [www.gamedeception.net](https://www.gamedeception.net).
