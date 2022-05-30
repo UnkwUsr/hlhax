@@ -12,6 +12,7 @@ namespace Cvars
     cvar_t* esp_box_r;
     cvar_t* esp_box_g;
     cvar_t* esp_box_b;
+    cvar_t* esp_name;
 }
 
 namespace Esp {
@@ -25,6 +26,7 @@ namespace Esp {
         Cvars::esp_box_r = CREATE_CVAR("esp_box_r", "0");
         Cvars::esp_box_g = CREATE_CVAR("esp_box_g", "0");
         Cvars::esp_box_b = CREATE_CVAR("esp_box_b", "255");
+        Cvars::esp_name = CREATE_CVAR("esp_name", "1");
     }
 
 
@@ -48,10 +50,12 @@ namespace Esp {
                         Cvars::esp_box_b->value,
                         255);
 
-                gp_Engine->pfnDrawSetTextColor(1, 1, 1);
-                gp_Engine->pfnDrawConsoleString(
-                        Screen[0], Screen[1] + 40,
-                        getPlayerNameByIndex(ent->index));
+                if(Cvars::esp_name->value != 0) {
+                    gp_Engine->pfnDrawSetTextColor(1, 1, 1);
+                    gp_Engine->pfnDrawConsoleString(
+                            Screen[0], Screen[1] + 40,
+                            getPlayerNameByIndex(ent->index));
+                }
             }
         }
 
