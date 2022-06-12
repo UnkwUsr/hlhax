@@ -7,8 +7,15 @@ check [src/funcs](src/funcs).
 ## Demo
 
 <details>
-  <summary>Screenshot</summary>
+  <summary>Screenshot (click to expand)</summary>
   <img src="https://user-images.githubusercontent.com/49063932/159180098-ed79210e-4008-4c9e-9699-12cf9bebb7c0.png" alt="demo image"/>
+</details>
+
+<details>
+  <summary>Video (click to expand)</summary>
+
+  [![hlhax demo video](https://img.youtube.com/vi/Qv62MQEc2wM/0.jpg)](https://www.youtube.com/watch?v=Qv62MQEc2wM "hlhax aimbot demo")
+
 </details>
 
 ## Startup
@@ -30,6 +37,7 @@ check [src/funcs](src/funcs).
     ```
 
 4. Actually build:
+
     ```bash
      make
     ```
