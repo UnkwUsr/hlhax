@@ -14,6 +14,7 @@
 #include "funcs/movement/fps_set/fps_set.h"
 #include "funcs/movement/sgs/sgs.h"
 #include "funcs/movement/spinhack/spinhack.h"
+#include "funcs/movement/speedhack/speedhack.h"
 
 #include "funcs/misc/steamid_changer/steamid_changer.h"
 
@@ -46,6 +47,7 @@ void Funcs_Init()
     FpsSet::Init();
     Sgs::Init();
     Spinhack::Init();
+    Speedhack::Init();
 
 
     // last hooked funcs will process first. We need that

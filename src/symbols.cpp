@@ -26,6 +26,7 @@ triangleapi_t go_TriApi;
 playermove_t* gp_pmove = NULL;
 double* gp_host_frametime = NULL;
 UserMsg* gp_ClientUserMsgs = NULL;
+float* gp_speed_val = NULL;
 
 f_malloc_cmd_t f_Cmds_AddMalloc = NULL;
 
@@ -88,10 +89,27 @@ void findStudioModelRenderer() {
     unprotectAddr(gp_StudioModelRenderer);
 }
 
+
+// speedhack method 'wavspeed'
+void findSpeedPtr()
+{
+    void* host_speeds = host_speeds = dlsym(handles::hw, "Host_Speeds");
+    if(!host_speeds) {
+        printf("[hlhax] Can't find Host_Speeds func\n");
+        return;
+    }
+
+    // this function have interact with wanted pointer, so take it from
+    // function body.
+    gp_speed_val = *(float**)((char*)host_speeds + 0x13);
+    unprotectAddr(gp_speed_val);
+}
+
 bool checkLoadedSymbols() {
     if(!gp_Engine || !gp_Client || !gp_steamclient_funcs || !gp_Studio ||
        !gp_EngStudio || !gp_StudioModelRenderer || !gp_pmove ||
-       !gp_host_frametime || !gp_ClientUserMsgs || !f_Cmds_AddMalloc) {
+       !gp_host_frametime || !gp_ClientUserMsgs || !f_Cmds_AddMalloc ||
+       !gp_speed_val) {
         printf("[hlhax] Some symbols not loaded\n");
         return false;
     }
@@ -116,6 +134,7 @@ bool findSymbols() {
     gp_EngStudio =
         (engine_studio_api_t*)dlsym(handles::hw, "engine_studio_api");
     findStudioModelRenderer();
+    findSpeedPtr();
 
     if(!checkLoadedSymbols())
         return false;
