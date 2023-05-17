@@ -14,7 +14,7 @@ check [src/funcs](src/funcs).
 <details>
   <summary>Video (click to expand)</summary>
 
-  [![hlhax demo video](https://img.youtube.com/vi/Qv62MQEc2wM/0.jpg)](https://www.youtube.com/watch?v=Qv62MQEc2wM "hlhax aimbot demo")
+  [![hlhax demo video](https://user-images.githubusercontent.com/49063932/235757516-9b58eb42-dcb2-4f70-bb89-4ad85235338b.png)](https://github.com/UnkwUsr/hlhax/assets/49063932/4cd6f581-e49d-4a38-bf3f-7b9da7700118)
 
 </details>
 
