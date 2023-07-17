@@ -54,10 +54,10 @@ check [src/funcs](src/funcs).
 
 7. Make sure hax loaded fine.
 
-    Check in-game console and find line "Hack loaded FINE". Also you can try to
-    start typing `hx_` or `cv_` and a completion list should appear.
+    Check in-game console and find line "hlhax loaded". Also you can try to
+    start typing `hx_`, `cv_` or `+hx_` and a completion list should appear.
 
-## Goals (aka sweet dreams)
+## Plans (aka sweet dreams)
 
 Autostrafe functions. Really, I very love cs 1.6 kz hacks like Tkz or 101xD.
 They literally allow you to gain such speed that the player begins to fly up on
