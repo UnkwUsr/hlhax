@@ -14,7 +14,7 @@ namespace Speedhack {
     void Init()
     {
         CREATE_TGL_CMD("speed", speed_on, speed_off)
-        Cvars::speed = CREATE_CVAR("speed", "100");
+        Cvars::speed = CREATE_CVAR("speed", "50");
     }
 
     void speed_on()
