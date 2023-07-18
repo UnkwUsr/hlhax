@@ -13,6 +13,7 @@ namespace Cvars {
     cvar_t* triggerbot_attackcmd;
     cvar_t* triggerbot_drawshot;
     cvar_t* triggerbot_drawshot_time;
+    cvar_t* triggerbot_minimal_distance;
 }
 
 
@@ -32,6 +33,10 @@ namespace TriggerBot {
         Cvars::triggerbot_attackcmd = CREATE_CVAR("triggerbot_attackcmd", "+attack;wait;-attack");
         Cvars::triggerbot_drawshot = CREATE_CVAR("triggerbot_drawshot", "0");
         Cvars::triggerbot_drawshot_time = CREATE_CVAR("triggerbot_drawshot_time", "0.5");
+        // cs 1.6 knife:
+        // ~63 - left mouse button
+        // ~50 - right mouse button
+        Cvars::triggerbot_minimal_distance = CREATE_CVAR("triggerbot_minimal_distance", "100000");
     }
 
 
@@ -69,6 +74,11 @@ namespace TriggerBot {
         // hit map
         if(tr->ent <= 0)
             return;
+
+        float distance = (tr->endpos - vecBegin).Length();
+        if(distance > Cvars::triggerbot_minimal_distance->value) {
+            return;
+        }
 
         // WARNING! trace->ent is is the number in physent list not the normal entity number
         cl_entity_t* ent = gp_Engine->GetEntityByIndex(gp_pmove->physents[tr->ent].info);
