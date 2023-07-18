@@ -4,23 +4,15 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
-void* getAlignedAddr(void* addr_not_aligned) {
-    int pgsz = getpagesize();
+// source: linux kernel, tools/virtio/linux/kernel.h
+#define PAGE_SIZE getpagesize()
+#define PAGE_MASK (~(PAGE_SIZE-1))
+#define PAGE_ALIGN(x) ((x + PAGE_SIZE - 1) & PAGE_MASK)
 
-    for(int i = 0; 10000; i++) {
-        int now_addr = i * pgsz;
-        int next_addr = now_addr + pgsz;
-        if((void*)next_addr > addr_not_aligned)
-            return (void*)(now_addr);
-    }
-
-    return NULL;
-}
+#define PAGE_ALIGN_DOWN(x) (PAGE_ALIGN(x) - PAGE_SIZE)
 
 bool unprotectAddr(void* place) {
-    void* p = getAlignedAddr(place);
-    if(!p)
-        return false;
+    void* p = (void*)PAGE_ALIGN_DOWN((int)place);
 
     int pgsz = getpagesize();
     int res = mprotect(p, pgsz, PROT_READ | PROT_WRITE);
