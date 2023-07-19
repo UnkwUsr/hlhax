@@ -46,6 +46,7 @@ namespace Cvars {
     cvar_t* aimbot_attack_type;
     cvar_t* aimbot_attack_usecmd;
     cvar_t* aimbot_attack_cmd;
+    cvar_t* aimbot_minimal_distance;
 }
 
 
@@ -64,6 +65,7 @@ namespace AimBot {
         Cvars::aimbot_attack_type = CREATE_CVAR("aimbot_attack_type", "1");
         Cvars::aimbot_attack_usecmd = CREATE_CVAR("aimbot_attack_usecmd", "0");
         Cvars::aimbot_attack_cmd = CREATE_CVAR("aimbot_attack_cmd", "+attack;wait;-attack");
+        Cvars::aimbot_minimal_distance = CREATE_CVAR("aimbot_minimal_distance", "100000");
     }
 
 
@@ -140,6 +142,11 @@ namespace AimBot {
             int entindex = gp_pmove->physents[tr->ent].info;
             if(!Filter::isValidPlayer(entindex))
                 continue;
+
+            float distance = (tr->endpos - vecBegin).Length();
+            if(distance > Cvars::aimbot_minimal_distance->value) {
+                continue;
+            }
 
             float rating = Filter::targetRating(i);
             if(rating > min_rating)
