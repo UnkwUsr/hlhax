@@ -13,6 +13,7 @@
 
 #include "funcs/movement/fps_set/fps_set.h"
 #include "funcs/movement/sgs/sgs.h"
+#include "funcs/movement/bhop/bhop.h"
 #include "funcs/movement/spinhack/spinhack.h"
 #include "funcs/movement/speedhack/speedhack.h"
 
@@ -46,6 +47,7 @@ void Funcs_Init()
 
     FpsSet::Init();
     Sgs::Init();
+    Bhop::Init();
     Spinhack::Init();
     Speedhack::Init();
 
