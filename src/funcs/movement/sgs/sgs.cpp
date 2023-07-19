@@ -7,7 +7,7 @@
 
 namespace Cvars {
     cvar_t* sgs_standup;
-    // cvar_t* sgs_slowdown;
+    cvar_t* sgs_noslowdown;
     cvar_t* sgs_bhop;
 }
 
@@ -23,7 +23,7 @@ namespace Sgs {
         CREATE_TGL_CMD("sgs", sgs_on, sgs_off)
 
         Cvars::sgs_standup = CREATE_CVAR("sgs_standup", "0");
-        // Cvars::sgs_slowdown = CREATE_CVAR("sgs_slowdown", "0");
+        Cvars::sgs_noslowdown = CREATE_CVAR("sgs_noslowdown", "1");
         Cvars::sgs_bhop = CREATE_CVAR("sgs_bhop", "0");
     }
 
@@ -32,8 +32,19 @@ namespace Sgs {
     {
         CALL_ORIG(CL_CreateMove, frametime, cmd, active);
 
-        if(!b_sgs)
+        // noslowdown related
+        static bool should_restore_speed = false;
+        static float orig_speed = -1;
+
+        if(!b_sgs) {
+            // noslowdown related
+            if(should_restore_speed) {
+                *gp_speed_val = orig_speed;
+                should_restore_speed = false;
+            }
+
             return;
+        }
 
 
         Vector vtmp = gp_pmove->origin; vtmp[2] = -4096.0f;
@@ -64,9 +75,27 @@ namespace Sgs {
             }
         }
 
+        float horizontal_velocity = gp_pmove->velocity.Length2D();
+
+        if(Cvars::sgs_noslowdown->value != 0 && gp_pmove->flags & FL_ONGROUND) {
+            // allows surf on enevens when speed is more than 1000
+            // TODO: cvar: noslowdown_min_speed_to_surf
+            // TODO: refactor. I did this when was asleep. The original idea
+            // was to allow surf only when speed is enough. Otherwise apply
+            // noslowdown on onevens (= do not fly on them)
+            if(horizontal_velocity <= 1000 && glocal_fGroundAngle != 0) {
+                if(!should_restore_speed) {
+                    should_restore_speed = true;
+                    orig_speed = *gp_speed_val;
+                }
+                *gp_speed_val = 0;
+            }
+        } else if(should_restore_speed) {
+            *gp_speed_val = orig_speed;
+            should_restore_speed = false;
+        }
 
         // from 101xd
-
         static int gs_state = 0;
         if(Cvars::sgs_standup->value&&glocal_fHeight<Cvars::sgs_standup->value)
         {
@@ -87,13 +116,6 @@ namespace Sgs {
             cmd->buttons &= ~IN_DUCK;
             gs_state = 0;
         }
-
-        // my shitty sgs
-
-        // if (gp_pmove->flags & FL_ONGROUND)
-        //  cmd->buttons |= IN_DUCK;
-        // if (((gp_pmove->flags & FL_ONGROUND) && (gp_pmove->bInDuck)) || !(gp_pmove->flags & FL_ONGROUND))
-        //  cmd->buttons &= ~IN_DUCK;
     }
 
     void sgs_on()
