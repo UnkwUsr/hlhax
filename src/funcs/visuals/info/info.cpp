@@ -10,6 +10,8 @@ namespace Cvars
     cvar_t* info_speed_v;
 }
 
+// TODO: add cvars to set position
+
 namespace Info {
     DEF_HOOK(HUD_Redraw)
 
@@ -36,6 +38,7 @@ namespace Info {
             char text[30];
             sprintf(text, "HSpeed: %.3f",
                 std::hypot(gp_pmove->velocity[0], gp_pmove->velocity[1]));
+            gp_Engine->pfnDrawSetTextColor(1, 1, 1);
             gp_Engine->pfnDrawConsoleString(640 / 2, 480 / 2 + y,
                 text);
             y += 20;
@@ -44,6 +47,7 @@ namespace Info {
         {
             char text[30];
             sprintf(text, "VSpeed: %.3f", gp_pmove->flFallVelocity);
+            gp_Engine->pfnDrawSetTextColor(1, 1, 1);
             gp_Engine->pfnDrawConsoleString(640 / 2, 480 / 2 + y,
                 text);
         }
