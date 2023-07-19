@@ -128,13 +128,13 @@ bool findSymbols() {
     findSteamclientFuncs();
     findCmdsAddMallocCommandFunc();
     findClientUserMsgs();
+    findSpeedPtr();
 
     // client symbols
     gp_Studio = (r_studio_interface_t*)dlsym(*handles::p_client, "studio");
     gp_EngStudio =
         (engine_studio_api_t*)dlsym(handles::hw, "engine_studio_api");
     findStudioModelRenderer();
-    findSpeedPtr();
 
     if(!checkLoadedSymbols())
         return false;
