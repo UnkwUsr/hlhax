@@ -8,7 +8,7 @@
 namespace Cvars {
     cvar_t* sgs_standup;
     cvar_t* sgs_noslowdown;
-    cvar_t* sgs_bhop;
+    cvar_t* sgs_fake_jump;
 }
 
 namespace Sgs {
@@ -24,7 +24,7 @@ namespace Sgs {
 
         Cvars::sgs_standup = CREATE_CVAR("sgs_standup", "0");
         Cvars::sgs_noslowdown = CREATE_CVAR("sgs_noslowdown", "1");
-        Cvars::sgs_bhop = CREATE_CVAR("sgs_bhop", "0");
+        Cvars::sgs_fake_jump = CREATE_CVAR("sgs_fake_jump", "0");
     }
 
 
@@ -108,7 +108,7 @@ namespace Sgs {
         }
         else if(gs_state == 1)
         {
-            if(Cvars::sgs_bhop->value &&
+            if(Cvars::sgs_fake_jump->value &&
                 gp_pmove->usehull==0)
             {
                 cmd->buttons|=IN_JUMP;
