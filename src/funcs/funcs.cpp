@@ -11,7 +11,7 @@
 #include "funcs/visuals/esp/esp.h"
 #include "funcs/visuals/fullbright/fullbright.h"
 
-#include "funcs/movement/fps_set/fps_set.h"
+#include "funcs/movement/fps_boost/fps_boost.h"
 #include "funcs/movement/sgs/sgs.h"
 #include "funcs/movement/bhop/bhop.h"
 #include "funcs/movement/strafehack/strafehack.h"
@@ -46,7 +46,7 @@ void Funcs_Init()
     NoRecoil::Init();
     FastZoom::Init();
 
-    FpsSet::Init();
+    FpsBoost::Init();
     Sgs::Init();
     Bhop::Init();
     Strafehack::Init();

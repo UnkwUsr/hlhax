@@ -1,4 +1,4 @@
-#include "funcs/movement/fps_set/fps_set.h"
+#include "funcs/movement/fps_boost/fps_boost.h"
 #include "globals.h"
 #include "utils/cmds/cmds.h"
 #include "utils/cvars/cvars.h"
@@ -11,21 +11,21 @@ namespace Cvars {
     cvar_t* fps_boost_cmd_off;
 }
 
-namespace FpsSet {
+namespace FpsBoost {
     DEF_HOOK(CL_CreateMove)
 
-    bool b_fps_set;
+    bool b_fps_boost;
 
     void Init()
     {
         ADD_HOOK(CL_CreateMove, gp_Client)
 
-        // Note: before using fps_set keep sure that fps_max is much higher
+        // Note: before using fps_boost keep sure that fps_max is much higher
         // than fps_critical (but do not set fps_max very high!!! Best value is
         // just 1000, as higher it goes, slower you actually will be. Probably.
         // Read more at: https://wiki.sourceruns.org/wiki/FPS_Effects)
 
-        CREATE_TGL_CMD("fps_set", fps_set_on, fps_set_off)
+        CREATE_TGL_CMD("fps_boost", fps_boost_on, fps_boost_off)
 
         Cvars::fps_critical = CREATE_CVAR("fps_critical", "500");
         Cvars::fps_boost_cmd_on = CREATE_CVAR("fps_boost_cmd_on", "\
@@ -52,7 +52,7 @@ namespace FpsSet {
     void CL_CreateMove(float frametime, usercmd_t *cmd, int active)
     {
         CALL_ORIG(CL_CreateMove, frametime, cmd, active);
-        if(!b_fps_set)
+        if(!b_fps_boost)
             return;
 
         if(cmd->buttons & IN_SCORE ||
@@ -80,15 +80,15 @@ namespace FpsSet {
     }
 
 
-    void fps_set_on()
+    void fps_boost_on()
     {
-        b_fps_set = true;
+        b_fps_boost = true;
 
         gp_Engine->pfnClientCmd(Cvars::fps_boost_cmd_on->string);
     }
-    void fps_set_off()
+    void fps_boost_off()
     {
-        b_fps_set = false;
+        b_fps_boost = false;
         gp_Engine->Cvar_SetValue("r_norefresh", 0);
         gp_Engine->Cvar_SetValue("cl_showfps", 1);
 
@@ -105,4 +105,4 @@ namespace FpsSet {
 
         return cur_fps;
     }
-} // namespace FpsSet
+} // namespace FpsBoost

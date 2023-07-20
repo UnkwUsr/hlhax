@@ -5,15 +5,15 @@
 #include "utils/hooks/funcs.h"
 
 
-namespace FpsSet {
+namespace FpsBoost {
     void Init();
 
     DECL_HOOK(void, CL_CreateMove, float frametime, usercmd_t *cmd, int active)
 
-    void fps_set_on();
-    void fps_set_off();
+    void fps_boost_on();
+    void fps_boost_off();
 
     int calc_fps();
-} // namespace FpsSet
+} // namespace FpsBoost
 
 #endif // FPS_SET_H
