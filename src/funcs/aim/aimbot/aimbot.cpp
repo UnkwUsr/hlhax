@@ -76,13 +76,6 @@ namespace AimBot {
         b_aimbot = false;
     }
 
-
-    bool testAimAngles(Vector vAimAngles) {
-        // there part from triggerbot
-
-    }
-
-
     void CL_CreateMove(float frametime, usercmd_t *cmd, int active) {
         CALL_ORIG(CL_CreateMove, frametime, cmd, active);
 
@@ -118,8 +111,6 @@ namespace AimBot {
         {
             if(!Filter::isValidPlayer(i))
                 continue;
-
-            cl_entity_t* ent = gp_Engine->GetEntityByIndex(i);
 
             Vector vecBegin;
             VectorCopy(gp_pmove->origin, vecBegin);

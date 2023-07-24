@@ -42,8 +42,10 @@ namespace Barrel {
         Vector vecBegin;
         VectorCopy(ent->origin, vecBegin);
         if(ent->curstate.usehull)
+            // entity crouching
             vecBegin[2]+=12;
         else
+            // entity stands full size
             vecBegin[2]+=17;
         vecBegin[2] += 9;
 
