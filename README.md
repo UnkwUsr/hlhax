@@ -1,8 +1,17 @@
+# Status
+
+Fortunetly broken after Half-Life 25th anniversary update (because binaries do
+not export dynamic symbols now). I'm not going to fix this because:
+
+1. I hope hl1 will get some activity again, so I don't want to flood servers
+   with cheaters.
+2. I don't see much fun in dealing with byte patterns and offsets.
+
 # HlHaxLib
 
 HlHaxLib is a linux hack for games based on goldsource engine so this can work
-for many games aka half-life 1, counter-strike 1.6, etc. For features list
-check [src/funcs](src/funcs).
+for many games like half-life 1, counter-strike 1.6, etc. For features list see
+[src/funcs](src/funcs).
 
 ## Demo
 
@@ -57,15 +66,6 @@ check [src/funcs](src/funcs).
     Check in-game console and find line "hlhax loaded". Also you can try to
     start typing `hx_`, `cv_` or `+hx_` and a completion list should appear.
 
-## Plans (aka sweet dreams)
-
-Autostrafe functions. Really, I very love cs 1.6 kz hacks like Tkz or 101xD.
-They literally allow you to gain such speed that the player begins to fly up on
-uneven surfaces.
-
-Firstly I want to see it in half-life, and then make it *cross-mod*, to work in
-cs 1.6.
-
 ## Credits
 
 Many thanks to all game hacking communities, this is a really big scene. Mostly
@@ -80,10 +80,8 @@ counter-strike 1.6 .
 Unknown Russian site with a lot of useful information about hacks in cs 1.6:
 <http://troll-homepage.narod.ru/>
 
-Special thanks to `shelru` for his method of injecting library into process
-using debugger (I found this method from his released extramirror version for
-linux, but then he deleted all stuff related to linux version, so I can't even
-see on it anymore, lol).
+Special thanks to `shelru` for method of injecting library into process using
+debugger, which idea I took from extramirror version for linux.
 
-And, somewhere in the code I also inserted urls to original sources, but I'm
-sure that's not all.
+Somewhere in the code I also inserted urls to original sources, but I'm sure
+that's not all.
